@@ -1,6 +1,6 @@
 import type { CityMap } from "./map";
 
-export const GENERATOR_VERSION = "authored-neighborhoods-1";
+export const GENERATOR_VERSION = "authored-neighborhoods-2";
 export const CATALOG_VERSION = "kenney-fantasy-town-2.0-recipes-1";
 export const CITY_SEED = "repocity-classic-001";
 export const DISTRICT_SLOTS: [number, number][] = [
@@ -28,26 +28,28 @@ function hash(value: string) {
   }
   return result >>> 0;
 }
+// IDs must sort identically across operating-system languages.
+export function compareIds(a: { id: string }, b: { id: string }) {
+  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+}
 export function createLayout(map: CityMap, seed = CITY_SEED): Placement[] {
-  return [...map.districts]
-    .sort((a, b) => a.id.localeCompare(b.id))
-    .flatMap((district, index) => {
-      const [x, z] = DISTRICT_SLOTS[index];
-      return map.buildings
-        .filter((b) => b.districtId === district.id)
-        .sort((a, b) => a.id.localeCompare(b.id))
-        .map((b, slot) => {
-          const variant = hash(`${seed}:${b.id}`) % 4;
-          return {
-            id: b.id,
-            districtId: district.id,
-            x: x + (slot === 0 ? -1.55 : slot === 1 ? 1.55 : 0),
-            z: z + (slot === 2 ? -3 : 0),
-            variant,
-            floors: variant === 1 ? 2 : 1,
-            width: 2,
-            depth: variant === 3 ? 1.5 : 2,
-          };
-        });
-    });
+  return [...map.districts].sort(compareIds).flatMap((district, index) => {
+    const [x, z] = DISTRICT_SLOTS[index];
+    return map.buildings
+      .filter((b) => b.districtId === district.id)
+      .sort(compareIds)
+      .map((b, slot) => {
+        const variant = hash(`${seed}:${b.id}`) % 4;
+        return {
+          id: b.id,
+          districtId: district.id,
+          x: x + (slot === 0 ? -1.55 : slot === 1 ? 1.55 : 0),
+          z: z + (slot === 2 ? -3 : 0),
+          variant,
+          floors: variant === 1 ? 2 : 1,
+          width: 2,
+          depth: variant === 3 ? 1.5 : 2,
+        };
+      });
+  });
 }

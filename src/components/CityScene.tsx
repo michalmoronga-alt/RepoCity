@@ -26,7 +26,12 @@ import {
 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { CityMap } from "../domain/map";
-import { createLayout, DISTRICT_SLOTS, type Placement } from "../domain/layout";
+import {
+  compareIds,
+  createLayout,
+  DISTRICT_SLOTS,
+  type Placement,
+} from "../domain/layout";
 import {
   buildingActivities,
   currentCheck,
@@ -741,18 +746,16 @@ export function CityScene(props: Props) {
             </button>
           );
         })}
-        {[...props.map.districts]
-          .sort((a, b) => a.id.localeCompare(b.id))
-          .map((district, index) => (
-            <span
-              key={district.id}
-              className="district-label"
-              data-district-x={DISTRICT_SLOTS[index][0]}
-              data-district-z={DISTRICT_SLOTS[index][1] + 2}
-            >
-              {district.label}
-            </span>
-          ))}
+        {[...props.map.districts].sort(compareIds).map((district, index) => (
+          <span
+            key={district.id}
+            className="district-label"
+            data-district-x={DISTRICT_SLOTS[index][0]}
+            data-district-z={DISTRICT_SLOTS[index][1] + 2}
+          >
+            {district.label}
+          </span>
+        ))}
       </div>
     </div>
   );

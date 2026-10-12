@@ -20,7 +20,7 @@ const output = [
 ];
 let count = 0;
 for (const [path, entry] of Object.entries(lock.packages).sort(([a], [b]) =>
-  a.localeCompare(b),
+  a < b ? -1 : a > b ? 1 : 0,
 )) {
   if (!path || entry.dev) continue;
   const directory = new URL(`${path}/`, root);
