@@ -4,6 +4,8 @@
 
 A building is a **recipe**, composed of interoperable pieces. Each piece owns machine-readable metadata and a 3D visual asset. Typical parts: plot/foundation, ground floor, repeatable floor, roof, tower, terrace, facade attachment, door/window, chimney, landscaping, road tile.
 
+This is the target system. [Prototype 001](PROTOTYPE_001.md) starts with a small authored recipe set for 8–12 buildings; it does not require a comprehensive factory or minimum inventory of each part category.
+
 ## Identifiers vs metadata
 
 Use a readable immutable ID like `CL-BLD-FL-02-A3`:
@@ -50,7 +52,7 @@ Wang tiles / constrained adjacency can help roads, facades and roof transitions;
 
 ## Epochs
 
-Four visual phases are proposed, but the first prototype may only implement two full graphic sets. Unlocks are visual capacities governed by versioned, verifiable events, not code modifications.
+Four visual phases remain a later proposal; the first prototype has no epoch progression. Unlocks will be governed by versioned verifiable events. Initial heights express visual archetypes, not code quality, developer performance or PR count. Useful simplification may consolidate buildings without being treated as failure.
 
 ## Visual consistency
 

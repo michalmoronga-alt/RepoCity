@@ -8,12 +8,15 @@ RepoCity is **not** an orchestrator. It must never modify source repositories, b
 
 ## Current direction (12 Oct 2026)
 
+- **Primary value (approved):** a calm companion **and** a practical map for people working through AI agents; explain functional responsibilities and observed activity in plain language.
+- **First experience:** confirm/correct the map, switch City/Overview and inspect purpose, evidence and related changes.
+- **First proof:** map a real project before expanding the art system; build a scene with **8–12 buildings**. Identifiable pilot evidence stays local.
 - **Visual:** Classic human city first. Magic World and Orcs are future theme packs.
 - **Rendering:** lightweight low-poly **3D with an orthographic/isometric camera**; React + Three.js / React Three Fiber is the initial candidate, subject to prototype benchmarks.
 - **World model:** stable city core + organically generated districts; each district consists of many buildings, roads, lots, landscaping and temporary construction sites.
 - **Content:** modular, socket-compatible assets (floor, roof, extension, terrace, road, props) with structured specifications.
-- **Progress:** four visual epochs are envisioned; project milestones unlock structures, building height and special landmarks. No source-repo modifications.
-- **History:** event-driven timeline with deterministic replay, stable identities and a reproducible generation seed.
+- **Progress:** four epochs remain a later direction; the first prototype has no epoch gate. Size is not a quality/productivity score; useful simplification can improve the city.
+- **History:** start with an honest snapshot and a few labeled simulated activities; evolve toward a deterministic timeline with explicit coverage and stable identities.
 - **AI architect:** optional *city-only* designer for unique layouts, building recipes, landmarks and district identities, governed by validation rules. No uncontrolled code execution or changes to the observed project.
 - **Reuse first:** study open-source approaches and properly licensed/free asset packs before building replacements.
 
@@ -39,3 +42,5 @@ RepoCity is **not** an orchestrator. It must never modify source repositories, b
 - [Sample simulated events](examples/events/sample-events.json)
 
 Status: **discovery / pre-prototype**. This repository contains a product/design baseline, not a functioning game yet.
+
+Public examples are synthetic. Identifiable project maps and evidence live under ignored `.local/`; observing a project never authorizes modifying it.

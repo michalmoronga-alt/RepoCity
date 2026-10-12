@@ -4,6 +4,12 @@
 
 A fun, universal, visually rich **living mirror** of software development. A passive city-building simulation that consumes repository events and shows the project evolving in time. No gameplay actions may change the source project.
 
+## Approved first-use experience
+
+Primary value: calm companion and practical project map for people directing AI-assisted development. The user confirms/corrects functional groups, then explores the same stable city through City and Overview modes. A building card explains responsibility in plain language and links evidence; relationships appear on demand. Later, a daily tour highlights verified changes since the previous visit.
+
+Corrections live in RepoCity configuration. Uncertain mappings stay proposals. Folder names, code volume and change counts are not success scores. See [decisions](DECISIONS.md) and [city rules](CITY_RULES.md); these are not claims of working implementation.
+
 ## Hierarchy
 
 | Software concept | City representation |
@@ -11,10 +17,10 @@ A fun, universal, visually rich **living mirror** of software development. A pas
 | Repository / project | City |
 | Architectural domain / package group / meaningful subsystem | District |
 | Component / service / bounded responsibility | Persistent building or ensemble |
-| Dependencies or structural links | Optional meaningful streets / bridges; aesthetics fill other roads |
+| Dependencies or structural links | On-demand sourced relationship overlays; ordinary streets organize the scene |
 | PR touching existing component | Temporary scaffold, renovation, construction activity |
 | PR introducing a new component | Proposed site, then building when merged |
-| CI/review | Inspector / testing effects with sourced outcomes |
+| CI/review | Separate testing and review states tied to the relevant revision |
 | Release / milestone | Gate event, unlock, monument |
 | Documentation | Shared library and local neighborhood archives |
 | Agent session | Worker only when source telemetry supports identification |
@@ -30,9 +36,13 @@ Districts are *collections of buildings*, not one building per module. The mappe
 
 Example for a furniture/CAD engine: Hardware District, Fronts District, Materials District, AI Workflow District. Example for a typical web app: Frontend, API, Data, Integrations.
 
+Shared UI, identity and observation mechanisms may cross functional districts. An accepted building's ID survives renaming its source path. Example labels above are illustrations, not inferred source facts.
+
 ## Growth and history
 
 Four proposed epochs: Settlement, Growing Town, Developed City, Golden Age. Milestones unlock visual capacity (e.g. higher floors, special buildings) but are **not** objective judgments of developer performance. Epoch mapping must be versioned and explainable. A large initial import creates a consistent snapshot; historical replay should only claim coverage for ingested history.
+
+Epochs are outside Prototype 001. Cleanup, consolidation and deletion are legitimate improvements. Initial building heights express bounded visual archetypes; future metrics require explicit units and explanations.
 
 ## Themes
 
