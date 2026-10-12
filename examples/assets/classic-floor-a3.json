@@ -1,0 +1,61 @@
+{
+  "id": "CL-BLD-FL-02-A3",
+  "theme": "classic",
+  "kind": "building_floor",
+  "variant": "02",
+  "assetPath": "assets/classic/floor_02.glb",
+  "footprint": [
+    2,
+    2
+  ],
+  "heightUnits": 1,
+  "anchor": [
+    0,
+    0,
+    0
+  ],
+  "rotationSteps": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "compatibilityFamily": "A3",
+  "sockets": [
+    {
+      "face": "bottom",
+      "type": "structural",
+      "family": "A3",
+      "size": [
+        2,
+        2
+      ]
+    },
+    {
+      "face": "top",
+      "type": "structural",
+      "family": "A3",
+      "size": [
+        2,
+        2
+      ]
+    }
+  ],
+  "bounds": {
+    "width": 2,
+    "depth": 2,
+    "height": 1
+  },
+  "allowedEpochs": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "tags": [
+    "windows",
+    "balcony"
+  ],
+  "licenseRef": "REPLACE_AFTER_ASSET_IMPORT",
+  "status": "illustrative_only"
+}
