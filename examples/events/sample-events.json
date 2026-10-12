@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "simulation",
+  "seed": 84201,
+  "events": [
+    {
+      "id": "ev-01",
+      "timestamp": "2026-01-01T10:00:00Z",
+      "type": "district.created",
+      "districtId": "hardware",
+      "sourceRef": "demo:module/hardware"
+    },
+    {
+      "id": "ev-02",
+      "timestamp": "2026-01-02T10:00:00Z",
+      "type": "pull_request.opened",
+      "prId": "demo:12",
+      "districtId": "hardware",
+      "componentIds": [
+        "hardware/drawers"
+      ]
+    },
+    {
+      "id": "ev-03",
+      "timestamp": "2026-01-03T10:00:00Z",
+      "type": "pull_request.review_requested",
+      "prId": "demo:12"
+    },
+    {
+      "id": "ev-04",
+      "timestamp": "2026-01-04T10:00:00Z",
+      "type": "checks.completed",
+      "prId": "demo:12",
+      "result": "success"
+    },
+    {
+      "id": "ev-05",
+      "timestamp": "2026-01-05T10:00:00Z",
+      "type": "pull_request.merged",
+      "prId": "demo:12",
+      "componentIds": [
+        "hardware/drawers"
+      ]
+    },
+    {
+      "id": "ev-06",
+      "timestamp": "2026-01-06T10:00:00Z",
+      "type": "release.published",
+      "releaseId": "demo:v0.1.0"
+    }
+  ]
+}
