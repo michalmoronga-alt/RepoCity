@@ -10,7 +10,7 @@ Define districts, buildings, activity, visual size, shared infrastructure, fresh
 
 ## Phase 1: map one real project
 
-Read a pinned source snapshot without executing or modifying it. Propose a few functional districts, approximately 10 buildings, purposes and sourced relationships. Present a local inspectable map; public examples are synthetic.
+Follow the [mapping pilot procedure](MAPPING_PILOT.md): read a pinned source snapshot without executing or modifying it. Propose a few functional districts, approximately 10 buildings, purposes and sourced relationships. Present a local inspectable map; public examples are synthetic.
 
 **Gate:** the owner recognizes the project, can correct the map and accepts its responsibilities. One pilot does not establish universal mapping.
 

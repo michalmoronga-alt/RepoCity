@@ -10,14 +10,18 @@ Projekt je vo fáze discovery / pre-prototype. Podklady a schválené smerovanie
 - Overené verejné popisy blízkych produktov; ich bežiace aplikácie neboli testované.
 - Prečítané dva grafické archívy a ich licencie; diely neboli importované ani geometricky overené.
 - Zvolený lokálny projekt pre prvú zdrojovo podloženú mapu.
+- Pripravený lokálny návrh 5 štvrtí, 10 budov a 8 zdrojovo doložených vzťahov, vrátane klikateľného rozdelenia na posúdenie.
+- Zapísaný [postup pilotného mapovania](MAPPING_PILOT.md) a nezávislá [syntetická mapa](../examples/maps/sample-service-office.json).
 
 ## Rozpracované
 
-Lokálna mapa: funkčné štvrte, približne 10 budov a zdrojovo potvrdené vzťahy. Používateľské potvrdenie konkrétneho mapovania ešte neprebehlo.
+Používateľské potvrdenie konkrétneho lokálneho mapovania ešte neprebehlo. Zdrojové dôkazy podporujú existenciu zodpovedností a vybrané volania; názvy a hranice budov ostávajú návrhom.
+
+Údaje mapy a odkazy sú skontrolované. Interakcie klikateľného návrhu zatiaľ neboli overené v bežiacom prehliadači; pripojenie overovacieho nástroja zlyhalo.
 
 ## Ďalší krok
 
-Dokončiť a predstaviť pilotnú mapu. Po potvrdení vznikne malý vizuálny prototyp podľa [PROTOTYPE_001.md](PROTOTYPE_001.md).
+Získať opravy alebo potvrdenie pilotnej mapy. Potom pripraviť malý vizuálny prototyp podľa [PROTOTYPE_001.md](PROTOTYPE_001.md).
 
 ## Otvorené brány
 

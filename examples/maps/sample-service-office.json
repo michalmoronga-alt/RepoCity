@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "kind": "synthetic_mapping_proposal",
+  "project": {
+    "label": "Sample Service Office",
+    "sourceSnapshot": null
+  },
+  "mappingVersion": "sample-0.1",
+  "districts": [
+    {
+      "id": "district-access",
+      "label": "Prístup a ovládanie"
+    },
+    {
+      "id": "district-people",
+      "label": "Ľudia"
+    },
+    {
+      "id": "district-work",
+      "label": "Plánovanie práce"
+    },
+    {
+      "id": "district-supply",
+      "label": "Zásobovanie"
+    },
+    {
+      "id": "district-finance",
+      "label": "Financie a prehľady"
+    }
+  ],
+  "buildings": [
+    {
+      "id": "building-entry",
+      "districtId": "district-access",
+      "label": "Vstupná brána",
+      "purpose": "Prihlasovanie a oprávnenia používateľov.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-console",
+      "districtId": "district-access",
+      "label": "Riadiace centrum",
+      "purpose": "Používateľské ovládanie firemných úloh.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-customers",
+      "districtId": "district-people",
+      "label": "Kancelária zákazníkov",
+      "purpose": "Kontakty a história zákazníkov.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-team",
+      "districtId": "district-people",
+      "label": "Kancelária tímu",
+      "purpose": "Pracovníci, zodpovednosti a dostupnosť.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-orders",
+      "districtId": "district-work",
+      "label": "Príjem objednávok",
+      "purpose": "Objednávky a ich spracovanie.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-calendar",
+      "districtId": "district-work",
+      "label": "Plánovacia kancelária",
+      "purpose": "Termíny a pridelenie práce.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-stock",
+      "districtId": "district-supply",
+      "label": "Sklad",
+      "purpose": "Dostupné zásoby a pohyby položiek.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-purchases",
+      "districtId": "district-supply",
+      "label": "Nákupná kancelária",
+      "purpose": "Doplnenie zásob a nákupné objednávky.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-billing",
+      "districtId": "district-finance",
+      "label": "Účtovná kancelária",
+      "purpose": "Faktúry a evidencia platieb.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    },
+    {
+      "id": "building-reports",
+      "districtId": "district-finance",
+      "label": "Prehľadová veža",
+      "purpose": "Súhrny objednávok, práce a financií.",
+      "evidenceStatus": "synthetic",
+      "implementation": "unknown",
+      "mappingStatus": "proposed",
+      "runtimeHealth": "unknown",
+      "activity": "unknown"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relationship-access",
+      "from": "building-console",
+      "to": "building-entry",
+      "label": "overí prístup",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-client",
+      "from": "building-orders",
+      "to": "building-customers",
+      "label": "priradí zákazníka",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-plan",
+      "from": "building-orders",
+      "to": "building-calendar",
+      "label": "odovzdá prácu na naplánovanie",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-team",
+      "from": "building-calendar",
+      "to": "building-team",
+      "label": "zohľadní dostupnosť tímu",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-supply",
+      "from": "building-orders",
+      "to": "building-stock",
+      "label": "zistí dostupnosť zásob",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-restock",
+      "from": "building-purchases",
+      "to": "building-stock",
+      "label": "doplní zásoby",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-bill",
+      "from": "building-billing",
+      "to": "building-orders",
+      "label": "prevezme údaje objednávky",
+      "evidenceStatus": "synthetic"
+    },
+    {
+      "id": "relationship-summary",
+      "from": "building-reports",
+      "to": "building-billing",
+      "label": "zostaví finančný prehľad",
+      "evidenceStatus": "synthetic"
+    }
+  ],
+  "acceptance": {
+    "ownerConfirmed": false,
+    "viewerImplemented": false
+  },
+  "limitations": [
+    "Fictional data for discussing map meaning; no source was inspected.",
+    "No complete file ownership, live activity or runtime verification is represented.",
+    "This is a proposed data shape; no production loader is implemented."
+  ]
+}

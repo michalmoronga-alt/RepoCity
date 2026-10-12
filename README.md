@@ -38,6 +38,11 @@ RepoCity is **not** an orchestrator. It must never modify source repositories, b
 - [Research and asset/license register](docs/RESEARCH_AND_ASSETS.md)
 - [Prototype 001 acceptance criteria](docs/PROTOTYPE_001.md)
 - [Development roadmap](docs/ROADMAP.md)
+- [Source-backed mapping pilot](docs/MAPPING_PILOT.md)
+- [Current status and open gates](docs/STATUS.md)
+- [Approved product decisions](docs/DECISIONS.md)
+- [City meanings and state rules](docs/CITY_RULES.md)
+- [Synthetic functional map](examples/maps/sample-service-office.json)
 - [Sample asset specification](examples/assets/classic-floor-a3.json)
 - [Sample simulated events](examples/events/sample-events.json)
 
