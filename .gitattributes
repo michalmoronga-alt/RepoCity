@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Preserve the upstream CC0 notice byte-for-byte, including its original tabs.
+public/kit/License.txt -text whitespace=-blank-at-eol,-blank-at-eof
+*.glb -text
+*.png -text

@@ -1,0 +1,34 @@
+{
+  "name": "repocity",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "tsx --test tests/*.test.ts",
+    "verify:assets": "node tools/verify-assets.mjs",
+    "notices": "node tools/generate-notices.mjs",
+    "format:check": "prettier --check src tests tools/*.mjs vite.config.ts tsconfig.json package.json .github/workflows/verify.yml"
+  },
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.1",
+    "lucide-react": "^0.468.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "0.180.0",
+    "@vitejs/plugin-react": "latest",
+    "prettier": "3.9.10",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vite": "8.3.4"
+  }
+}

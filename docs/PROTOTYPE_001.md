@@ -32,3 +32,9 @@ Goal: prove that a pleasant small city helps the owner understand a real project
 A running browser viewer, reproducible fixtures, source/state correspondence checks, render/interaction checks and recorded owner feedback. A map, screenshot or passing headless test alone does not complete this prototype.
 
 Only then connect live GitHub reads and expand the city system in the [roadmap](ROADMAP.md).
+
+## Implementation checkpoint — 13 Oct 2026
+
+The first viewer and simulated sequence are running. Source mapping was accepted separately. Tests and browser evidence are recorded in [STATUS.md](STATUS.md); owner feedback on the running viewer has not yet been obtained, so the prototype exit gate remains open.
+
+The initial recipes use a fixed Classic kit and authored district lots. Renaming/reordering and replaying activities preserve the layout. Adding/removing district identities across map versions is not qualified as stable incremental growth. Asset checks decode real vertex buffers and validate wall/roof contact anchors; they do not establish full socket compatibility or collision freedom for future arbitrary recipes.

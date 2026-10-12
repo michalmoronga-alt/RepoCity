@@ -1,0 +1,144 @@
+{
+  "creator": "Kenney",
+  "pack": "Fantasy Town Kit",
+  "version": "2.0",
+  "license": "CC0-1.0",
+  "downloadedOn": "2026-10-13",
+  "archiveUrl": "https://kenney.nl/media/pages/assets/fantasy-town-kit/efe948d309-1754222374/kenney_fantasy-town-kit_2.0.zip",
+  "archiveSha256": "1a7530c09f4d2fa2cdee259876f089334f8b1f27fa86a0c4f54ef86cdd8676ef",
+  "modifications": "Files unchanged. Recipe placements/scales/rotations and runtime material tints (terracotta roofs, warm gravel roads, warm walls) are authored in RepoCity. One shared atlas is used.",
+  "files": [
+    {
+      "source": "Models/GLB format/wall.glb",
+      "path": "wall.glb",
+      "bytes": 4792,
+      "sha256": "cab1dff37610e2a214237cc62ec0b1506e8fd76bb66c29f6c585b4b643b569c4"
+    },
+    {
+      "source": "Models/GLB format/wall-door.glb",
+      "path": "wall-door.glb",
+      "bytes": 29276,
+      "sha256": "79b2d40db110ca96a6e77d4261da665fdf8c68f4c20c2afef5bce1c28ad72857"
+    },
+    {
+      "source": "Models/GLB format/wall-window-small.glb",
+      "path": "wall-window-small.glb",
+      "bytes": 9376,
+      "sha256": "44516aac3d06ee8d2694cfd57d0c6e1e27ca2d0bc45b738ea1f0d1821da10110"
+    },
+    {
+      "source": "Models/GLB format/wall-wood-window-small.glb",
+      "path": "wall-wood-window-small.glb",
+      "bytes": 11808,
+      "sha256": "3c9118d167d8e75ee78f884b9edb90101f9c1928d4fcc2afaedcc349bf8c672b"
+    },
+    {
+      "source": "Models/GLB format/roof-point.glb",
+      "path": "roof-point.glb",
+      "bytes": 6180,
+      "sha256": "a7dfd157128e04105e976d7a47f772e95e4bd9f3d73b87a00b43861f406b94f8"
+    },
+    {
+      "source": "Models/GLB format/roof-high-point.glb",
+      "path": "roof-high-point.glb",
+      "bytes": 6192,
+      "sha256": "dd26c8d572f05a4725317de01415a17819b2d12cf01c8907bb2116b4ad8e85e9"
+    },
+    {
+      "source": "Models/GLB format/roof-gable.glb",
+      "path": "roof-gable.glb",
+      "bytes": 7632,
+      "sha256": "4bb6bdbcadbb8ebeb69d720e29f6c2e57c99d98966baa41fd86914d3c13d6039"
+    },
+    {
+      "source": "Models/GLB format/chimney.glb",
+      "path": "chimney.glb",
+      "bytes": 4656,
+      "sha256": "a15cdbd13860092f6d793e5b785043eb90a49cdaa725bb71df9fd154ca68dac6"
+    },
+    {
+      "source": "Models/GLB format/tree.glb",
+      "path": "tree.glb",
+      "bytes": 18188,
+      "sha256": "e8d81b97297de62699b92559cee7b247da84b1815df2515e42fd5a318a30b8d7"
+    },
+    {
+      "source": "Models/GLB format/tree-high-round.glb",
+      "path": "tree-high-round.glb",
+      "bytes": 13176,
+      "sha256": "7f372e338cbf5514a41e8d2afda81acd67277a4c5ad4e6e35a9acfa4a6e3bc4b"
+    },
+    {
+      "source": "Models/GLB format/tree-crooked.glb",
+      "path": "tree-crooked.glb",
+      "bytes": 19252,
+      "sha256": "da4349701dd3fc474f7bb03cfe8b230bec0919025d8d1ecac0d1061a23c5e910"
+    },
+    {
+      "source": "Models/GLB format/rock-small.glb",
+      "path": "rock-small.glb",
+      "bytes": 12620,
+      "sha256": "2f2ca3e9970124b81bde77cec3b1a337410a5c76336ce5dec5760aff1b415316"
+    },
+    {
+      "source": "Models/GLB format/rock-large.glb",
+      "path": "rock-large.glb",
+      "bytes": 18876,
+      "sha256": "425bea0dd3c8d9198a067a2faad1df8860c5b9eb53560ce5c67347a79852b9d1"
+    },
+    {
+      "source": "Models/GLB format/fountain-round.glb",
+      "path": "fountain-round.glb",
+      "bytes": 84848,
+      "sha256": "8d19741e2cca6cbdce114b950b4aa12af625979bbc17b2910ef2366834af5565"
+    },
+    {
+      "source": "Models/GLB format/fountain-center.glb",
+      "path": "fountain-center.glb",
+      "bytes": 3280,
+      "sha256": "bd2337361b7ce93c73b69d2a8d6fbf4fe6bcffea6469f16d1643c960781fa2ba"
+    },
+    {
+      "source": "Models/GLB format/road.glb",
+      "path": "road.glb",
+      "bytes": 2788,
+      "sha256": "85630c89588bdc19285a7b5e894c1ddac69d7ce2b069966453800519e446f900"
+    },
+    {
+      "source": "Models/GLB format/road-edge.glb",
+      "path": "road-edge.glb",
+      "bytes": 4912,
+      "sha256": "fdefb02b17eddb4543379841a727c41a9ca0b800953a681974e63798f80ce410"
+    },
+    {
+      "source": "Models/GLB format/planks.glb",
+      "path": "planks.glb",
+      "bytes": 11148,
+      "sha256": "619705afa7ad290bfa499a701fd7ea07210ad535126cb3abc245b6f16e1420ab"
+    },
+    {
+      "source": "Models/GLB format/poles.glb",
+      "path": "poles.glb",
+      "bytes": 4212,
+      "sha256": "5e6e9cbbcf29b042191781f830f928471c57f1dc7843ee33e2f7c1bff3edf522"
+    },
+    {
+      "source": "Models/GLB format/stall-bench.glb",
+      "path": "stall-bench.glb",
+      "bytes": 14168,
+      "sha256": "5a4b379488241394916991c4b482ec4863c05bb548ca8751f5c3935f1f6e5b9c"
+    },
+    {
+      "source": "Models/GLB format/lantern.glb",
+      "path": "lantern.glb",
+      "bytes": 14984,
+      "sha256": "f270637e3083d6e84a30626ee05df2b09597a642985a7f5c3e4ab5bb1c7a8d55"
+    },
+    {
+      "source": "Models/GLB format/Textures/colormap.png",
+      "path": "Textures/colormap.png",
+      "bytes": 11143,
+      "sha256": "4aac939dc33195e35caf8c382ee3cb170054da763577f22d3c22692ec6afccdf"
+    }
+  ]
+}

@@ -6,13 +6,13 @@ RepoCity is a universal, read-only visual companion for software repositories. A
 
 RepoCity is **not** an orchestrator. It must never modify source repositories, branches, issues, pull requests, CI, or existing agent workflows.
 
-## Current direction (12 Oct 2026)
+## Current direction (13 Oct 2026)
 
 - **Primary value (approved):** a calm companion **and** a practical map for people working through AI agents; explain functional responsibilities and observed activity in plain language.
 - **First experience:** confirm/correct the map, switch City/Overview and inspect purpose, evidence and related changes.
 - **First proof:** map a real project before expanding the art system; build a scene with **8–12 buildings**. Identifiable pilot evidence stays local.
 - **Visual:** Classic human city first. Magic World and Orcs are future theme packs.
-- **Rendering:** lightweight low-poly **3D with an orthographic/isometric camera**; React + Three.js / React Three Fiber is the initial candidate, subject to prototype benchmarks.
+- **Rendering:** lightweight low-poly **3D with an orthographic/isometric camera**, implemented with React + Three.js / React Three Fiber. Real-device qualification remains open.
 - **World model:** stable city core + organically generated districts; each district consists of many buildings, roads, lots, landscaping and temporary construction sites.
 - **Content:** modular, socket-compatible assets (floor, roof, extension, terrace, road, props) with structured specifications.
 - **Progress:** four epochs remain a later direction; the first prototype has no epoch gate. Size is not a quality/productivity score; useful simplification can improve the city.
@@ -46,6 +46,37 @@ RepoCity is **not** an orchestrator. It must never modify source repositories, b
 - [Sample asset specification](examples/assets/classic-floor-a3.json)
 - [Sample simulated events](examples/events/sample-events.json)
 
-Status: **discovery / pre-prototype**. This repository contains a product/design baseline, not a functioning game yet.
+Status: **first local 3D prototype; owner trial pending**. The viewer has 10 buildings, City/Overview, purpose/evidence, optional relationship lines, pan/zoom/home and an explicitly labeled nine-event simulation. Live GitHub data is not connected. The accepted private pilot is separate from the public fictional demo.
 
 Public examples are synthetic. Identifiable project maps and evidence live under ignored `.local/`; observing a project never authorizes modifying it.
+
+## Run the prototype
+
+Use Node.js 22.12+ (tested with 24.12) and npm:
+
+```sh
+npm ci
+npm run dev
+```
+
+Open [the local viewer](http://127.0.0.1:5173/). No account, Firebase, source-repository execution or GitHub token is needed. The server binds to loopback.
+
+The public checkout starts with the fictional service-office map. In development only, an optional `.local/pilot-map.json` inside **RepoCity** is read by the dev server; it must follow the [mapping fixture](examples/maps/sample-service-office.json). The upload button can also open a map JSON from your device. That file is parsed locally in the browser and is not uploaded or persisted. Neither path scans or modifies the observed repository.
+
+```sh
+npm test
+npm run verify:assets
+npm run notices
+npm run build
+npm run preview
+```
+
+The production build includes only the synthetic fixture and graphical assets. Preview does not serve the optional private mapping endpoint. Do not put identifiable source data in `public/` or `src/`.
+
+The small authored layout has at most five districts and three buildings per district, with 8–12 buildings total. It is not an automatic architecture mapper or a general incremental city generator.
+
+Visual assets: [Kenney Fantasy Town Kit 2.0](https://kenney.nl/assets/fantasy-town-kit), CC0; [original license](public/kit/License.txt), [exact subset and hashes](public/kit/manifest.json), [import/verification notes](docs/RESEARCH_AND_ASSETS.md). Regenerate the subset with `python tools/import_kenney.py`.
+
+[Dependency notices](public/THIRD_PARTY_NOTICES.txt) are shipped with the build; `npm run notices` reproduces them from the locked packages and preserved license texts. GitHub Actions checks tests, assets, notices and the production build on push/PR.
+
+See [visual direction and deliberate differences](docs/design/DIRECTION.md), [actual verification and remaining gates](docs/STATUS.md), and [next steps](docs/ROADMAP.md).

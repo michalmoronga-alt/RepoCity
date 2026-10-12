@@ -10,6 +10,10 @@ Michal zvolil kombináciu:
 
 Následne schválil hodnotenie, doplnenia a poradie ďalších krokov. Poveril agenta priebežne aktualizovať RepoCity a pokračovať. Poverenie sa týka RepoCity; pozorované projekty zostávajú iba na čítanie.
 
+## 13. október 2026 — prijatá pilotná mapa
+
+Michal potvrdil lokálny návrh piatich štvrtí a desiatich budov vrátane hraníc širšej výrobnej zodpovednosti odpoveďou „ano sedi“. Identifikovateľné podklady zostávajú lokálne. Brána významového mapovania prvého projektu je splnená; používateľská skúška 3D prototypu ešte neprebehla.
+
 ## Platí pre ďalšiu prácu
 
 - Funkčné štvrte a trvalé budovy; priečinky sú vstup pre návrh, nie automatická definícia architektúry.
@@ -29,6 +33,6 @@ Následne schválil hodnotenie, doplnenia a poradie ďalších krokov. Poveril a
 
 Pravidlá mesta → mapa reálneho projektu → malá vizuálna ukážka → GitHub iba na čítanie → pilot pri bežnej práci → rozšírenia podľa výsledku.
 
-Podrobné pravidlá nižšie sú konkrétnym návrhom realizácie schváleného smeru; používateľské potvrdenie konkrétnej mapy a skúška bežiaceho prototypu sú samostatné otvorené brány.
+Podrobné pravidlá nižšie sú konkrétnym návrhom realizácie schváleného smeru; prijatie pilotnej mapy je zapísané vyššie, skúška bežiaceho prototypu ostáva samostatnou otvorenou bránou.
 
 Aktuálny stav: [STATUS.md](STATUS.md). Význam mestských prvkov: [CITY_RULES.md](CITY_RULES.md).

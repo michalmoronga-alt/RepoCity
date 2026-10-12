@@ -2,6 +2,8 @@
 
 Owner decisions: [DECISIONS.md](DECISIONS.md). Actual progress: [STATUS.md](STATUS.md). A document alone does not pass an implementation gate.
 
+Checkpoint 13 Oct 2026: the owner accepted the first functional map. Phase 2's local viewer is implemented and browser-checked; owner feedback and real-device qualification remain open. Next is a short viewer trial, focused corrections, then the design of Phase 3's first public read-only GitHub snapshot.
+
 ## Phase 0: agree the city's meaning
 
 Define districts, buildings, activity, visual size, shared infrastructure, freshness and unknown states in [CITY_RULES.md](CITY_RULES.md).

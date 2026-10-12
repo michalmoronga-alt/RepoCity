@@ -3,6 +3,7 @@
 
 # Future viewer output and local configuration.
 node_modules/
+.playwright-mcp/
 dist/
 .env
 .env.*
