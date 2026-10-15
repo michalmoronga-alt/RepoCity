@@ -4,6 +4,8 @@ Owner decisions: [DECISIONS.md](DECISIONS.md). Actual progress: [STATUS.md](STAT
 
 Checkpoint 13 Oct 2026: the owner accepted the first functional map. Phase 2's local viewer is implemented and browser-checked; owner feedback and real-device qualification remain open. Next is a short viewer trial, focused corrections, then the design of Phase 3's first public read-only GitHub snapshot.
 
+Owner feedback, 15 Oct 2026: keep the graphical direction, increase density and architectural variety. The owner selected approximately 40–60 functional buildings in a compact town. This [dense-city iteration](DENSE_CITY.md) now comes before Phase 3; the former Phase 5 scale target is brought forward for the visual pilot, without bringing forward live integration or claiming universal growth.
+
 ## Phase 0: agree the city's meaning
 
 Define districts, buildings, activity, visual size, shared infrastructure, freshness and unknown states in [CITY_RULES.md](CITY_RULES.md).

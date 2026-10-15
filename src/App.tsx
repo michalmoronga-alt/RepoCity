@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { Home, Minus, Plus, Upload } from "lucide-react";
-import sample from "../examples/maps/sample-service-office.json";
+import sample from "../examples/maps/sample-dense-office.json";
 import { parseMap, type CityMap } from "./domain/map";
 import { replay, type CityEvent } from "./domain/activity";
 import { simulation } from "./data/simulation";
@@ -200,6 +200,12 @@ export default function App() {
               {map.synthetic ? "Fiktívna ukážka" : "Lokálny snapshot"}
             </strong>
             <span>Živá aktivita nepripojená</span>
+            <span>
+              {map.buildings.length} budov · {map.districts.length} štvrtí
+            </span>
+            {overview && map.layoutProfile === "dense" ? (
+              <span>Priblíž pre ďalšie názvy</span>
+            ) : null}
           </div>
           <div className="camera-toolbar">
             <div className="zoom-group">

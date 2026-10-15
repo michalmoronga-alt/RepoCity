@@ -6,6 +6,8 @@ A building is a **recipe**, composed of interoperable pieces. Each piece owns ma
 
 This is the target system. [Prototype 001](PROTOTYPE_001.md) starts with a small authored recipe set for 8–12 buildings; it does not require a comprehensive factory or minimum inventory of each part category.
 
+The [15 Oct dense-city iteration](DENSE_CITY.md) adds eight explicit archetypes and a 50-building public fixture. Functional role selects the archetype; stable ID selects facade/roof details. The renderer instances repeated parts while preserving per-building picking. These are authored recipes with checked envelopes, not the full socket-based factory described below.
+
 ## Identifiers vs metadata
 
 Use a readable immutable ID like `CL-BLD-FL-02-A3`:

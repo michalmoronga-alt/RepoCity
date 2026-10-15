@@ -6,12 +6,7 @@ import {
   useRef,
   type RefObject,
 } from "react";
-import {
-  Canvas,
-  useFrame,
-  useThree,
-  type ThreeEvent,
-} from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Line, OrbitControls, useGLTF, useTexture } from "@react-three/drei";
 import {
   InstancedMesh,
@@ -26,10 +21,12 @@ import {
 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { CityMap } from "../domain/map";
+import { KIT_ASSETS, buildingParts, type AssetName } from "../domain/recipes";
+import KitInstances from "./KitInstances";
 import {
   compareIds,
   createLayout,
-  DISTRICT_SLOTS,
+  districtSlots,
   type Placement,
 } from "../domain/layout";
 import {
@@ -58,57 +55,13 @@ interface Props {
   viewRequest: ViewRequest;
   onMetrics: (metrics: SceneMetrics) => void;
 }
-type AssetName =
-  | "wall"
-  | "wall-door"
-  | "wall-window-small"
-  | "wall-wood-window-small"
-  | "roof-point"
-  | "roof-high-point"
-  | "roof-gable"
-  | "chimney"
-  | "tree"
-  | "tree-high-round"
-  | "tree-crooked"
-  | "rock-small"
-  | "rock-large"
-  | "fountain-round"
-  | "fountain-center"
-  | "road"
-  | "road-edge"
-  | "planks"
-  | "poles"
-  | "stall-bench"
-  | "lantern";
 const URL_ROOT = "/kit/";
 const ROOF_MATERIAL = new MeshStandardMaterial({
   color: "#ac604b",
   roughness: 1,
 });
 const TINTED_MATERIALS = new WeakMap<Material, MeshStandardMaterial>();
-const ASSETS: AssetName[] = [
-  "wall",
-  "wall-door",
-  "wall-window-small",
-  "wall-wood-window-small",
-  "roof-point",
-  "roof-high-point",
-  "roof-gable",
-  "chimney",
-  "tree",
-  "tree-high-round",
-  "tree-crooked",
-  "rock-small",
-  "rock-large",
-  "fountain-round",
-  "fountain-center",
-  "road",
-  "road-edge",
-  "planks",
-  "poles",
-  "stall-bench",
-  "lantern",
-];
+const ASSETS = KIT_ASSETS;
 ASSETS.forEach((name) => useGLTF.preload(URL_ROOT + name + ".glb"));
 
 function Asset({
@@ -167,120 +120,6 @@ function useKitTexture() {
   return texture;
 }
 
-function House({
-  placement,
-  selected,
-  open,
-  onSelect,
-}: {
-  placement: Placement;
-  selected: boolean;
-  open: number;
-  onSelect: () => void;
-}) {
-  const { width, depth, floors, variant } = placement;
-  const click = (event: ThreeEvent<MouseEvent>) => {
-    if (event.delta > 3) return;
-    event.stopPropagation();
-    onSelect();
-  };
-  const faces = Array.from({ length: floors }, (_, floor) =>
-    Array.from({ length: 4 }, (_, side) => {
-      const rotation = (side * Math.PI) / 2,
-        length = side % 2 === 0 ? depth : width,
-        across = side % 2 === 0 ? width : depth;
-      return Array.from({ length: 2 }, (_, tile) => {
-        const offset = ((tile - 0.5) * length) / 2;
-        const wall: AssetName =
-          floor > 0
-            ? "wall-wood-window-small"
-            : side === 1 && tile === 0
-              ? "wall-door"
-              : "wall-window-small";
-        const local = new Vector3(
-          across / 2 - 0.5,
-          floor,
-          offset,
-        ).applyAxisAngle(new Vector3(0, 1, 0), rotation);
-        return (
-          <Asset
-            key={`${floor}-${side}-${tile}`}
-            name={wall}
-            position={[local.x, floor, local.z]}
-            rotation={rotation}
-            scale={[1, 1, length / 2]}
-          />
-        );
-      });
-    }),
-  );
-  return (
-    <group position={[placement.x, 0, placement.z]} onClick={click}>
-      {faces}
-      <Asset
-        name={
-          variant === 1
-            ? "roof-high-point"
-            : variant === 3
-              ? "roof-gable"
-              : "roof-point"
-        }
-        position={[0, floors, 0]}
-        scale={[width, 1, depth]}
-      />
-      <Asset
-        name="chimney"
-        position={[width * 0.22, floors + 0.22, -depth * 0.15]}
-        scale={[0.45, 0.45, 0.45]}
-      />
-      {selected ? (
-        <Line
-          points={[
-            [-width / 2 - 0.25, 0.03, -depth / 2 - 0.25],
-            [width / 2 + 0.25, 0.03, -depth / 2 - 0.25],
-            [width / 2 + 0.25, 0.03, depth / 2 + 0.25],
-            [-width / 2 - 0.25, 0.03, depth / 2 + 0.25],
-            [-width / 2 - 0.25, 0.03, -depth / 2 - 0.25],
-          ]}
-          color="#476a55"
-          lineWidth={2}
-        />
-      ) : null}
-      {open > 0 ? (
-        <group>
-          {[0, 1, 2, 3].map((side) => (
-            <Asset
-              key={side}
-              name="poles"
-              rotation={(side * Math.PI) / 2}
-              scale={
-                side % 2 === 0
-                  ? [width + 0.7, floors + 0.2, depth + 0.7]
-                  : [depth + 0.7, floors + 0.2, width + 0.7]
-              }
-            />
-          ))}
-          {[0, 1, 2, 3].map((side) => {
-            const front = side % 2 === 0;
-            return (
-              <Asset
-                key={`plank-${side}`}
-                name="planks"
-                position={
-                  front
-                    ? [(side === 0 ? 1 : -1) * (width / 2 + 0.3), 0.85, 0]
-                    : [0, 0.85, (side === 1 ? 1 : -1) * (depth / 2 + 0.3)]
-                }
-                scale={front ? [0.3, 1, depth + 0.7] : [width + 0.7, 1, 0.3]}
-              />
-            );
-          })}
-        </group>
-      ) : null}
-    </group>
-  );
-}
-
 function Roads({
   placements,
 }: {
@@ -300,13 +139,20 @@ function Roads({
     placements.forEach((p, index) => {
       const matrix = new Matrix4()
         .makeRotationY(p.angle)
-        .scale(new Vector3(1.15, 1, 1.15))
+        .scale(new Vector3(1, 1, 1))
         .setPosition(p.x, 0.006, p.z);
       ref.current!.setMatrixAt(index, matrix);
     });
     ref.current!.instanceMatrix.needsUpdate = true;
     ref.current!.computeBoundingSphere();
   }, [placements]);
+  useEffect(() => {
+    const mesh = ref.current;
+    return () => {
+      mesh?.dispose();
+    };
+  }, [source.geometry, material, placements.length]);
+  useEffect(() => () => material.dispose(), [material]);
   return (
     <instancedMesh
       ref={ref}
@@ -337,45 +183,89 @@ const TREES: [number, number][] = [
   [2.6, 2.5],
   [-2.1, 3.8],
 ];
-function Landscape() {
+function Landscape({ map }: { map: CityMap }) {
+  const dense = map.layoutProfile === "dense";
   const shape = useMemo(() => {
     const value = new Shape();
-    const points = Array.from({ length: 24 }, (_, i) => {
-      const angle = (i / 24) * Math.PI * 2,
-        radius = 1 + Math.sin(i * 2.3) * 0.035;
-      return [Math.cos(angle) * 12 * radius, Math.sin(angle) * 10.4 * radius];
+    const points = Array.from({ length: 32 }, (_, i) => {
+      const angle = (i / 32) * Math.PI * 2,
+        c = Math.cos(angle),
+        z = Math.sin(angle),
+        r = 1 + Math.sin(i * 2.3) * 0.015;
+      return dense
+        ? [
+            Math.sign(c) * Math.abs(c) ** 0.5 * 22 * r,
+            Math.sign(z) * Math.abs(z) ** 0.5 * 21 * r,
+          ]
+        : [c * 12 * r, z * 10.4 * r];
     });
     value.moveTo(points[0][0], points[0][1]);
-    points.slice(1).forEach(([x, y]) => value.lineTo(x, y));
+    points.slice(1).forEach(([x, z]) => value.lineTo(x, z));
     value.closePath();
     return value;
-  }, []);
+  }, [dense]);
+  const trees = useMemo<[number, number][]>(
+    () =>
+      dense
+        ? Array.from({ length: 36 }, (_, i) => {
+            const a = (i / 36) * Math.PI * 2,
+              c = Math.cos(a),
+              z = Math.sin(a);
+            return [
+              Math.sign(c) * Math.abs(c) ** 0.5 * 20.8,
+              Math.sign(z) * Math.abs(z) ** 0.5 * 19.6,
+            ];
+          })
+        : TREES,
+    [dense],
+  );
   const roads = useMemo(() => {
     const output: { x: number; z: number; angle: number }[] = [];
-    const nodes = DISTRICT_SLOTS.map(([x, z]) => [x, z + 1.45]);
-    nodes.forEach(([x, z], index) => {
-      const [endX, endZ] = nodes[(index + 1) % nodes.length];
-      const length = Math.hypot(endX - x, endZ - z),
-        steps = Math.ceil(length / 0.8);
-      for (let step = 0; step <= steps; step++)
+    const segment = (x: number, z: number, endX: number, endZ: number) => {
+      const steps = Math.ceil(Math.hypot(endX - x, endZ - z) / 0.8);
+      if (!steps) return;
+      for (let i = 0; i <= steps; i++)
         output.push({
-          x: x + ((endX - x) * step) / steps,
-          z: z + ((endZ - z) * step) / steps,
+          x: x + ((endX - x) * i) / steps,
+          z: z + ((endZ - z) * i) / steps,
           angle: Math.atan2(endX - x, endZ - z),
         });
-    });
-    [[0, 0], nodes[0], nodes[3]].slice(1).forEach(([x, z]) => {
-      const length = Math.hypot(x, z),
-        steps = Math.ceil(length / 0.8);
-      for (let step = 0; step <= steps; step++)
-        output.push({
-          x: (x * step) / steps,
-          z: (z * step) / steps,
-          angle: Math.atan2(x, z),
-        });
-    });
+    };
+    const nodes = districtSlots(map);
+    if (dense) {
+      [...map.districts].sort(compareIds).forEach((d, i) => {
+        const [x, z] = nodes[i],
+          rows = Math.ceil(
+            map.buildings.filter((b) => b.districtId === d.id).length / 3,
+          );
+        if (!rows) return;
+        for (let row = 0; row <= rows; row++)
+          segment(
+            x - 5.55,
+            z + (row - rows / 2) * 3.5,
+            x + 5.55,
+            z + (row - rows / 2) * 3.5,
+          );
+        for (let col = 0; col <= 3; col++)
+          segment(
+            x + (col - 1.5) * 3.7,
+            z - rows * 1.75,
+            x + (col - 1.5) * 3.7,
+            z + rows * 1.75,
+          );
+      });
+      segment(-17, 0, 17, 0);
+      segment(-5.75, -17, -5.75, 0);
+      segment(0, 0, 0, 17);
+    } else {
+      const route = nodes.map(([x, z]) => [x, z + 1.45]);
+      route.forEach(([x, z], i) =>
+        segment(x, z, ...(route[(i + 1) % route.length] as [number, number])),
+      );
+      [route[0], route[3]].forEach(([x, z]) => segment(0, 0, x, z));
+    }
     return output;
-  }, []);
+  }, [map, dense]);
   return (
     <group>
       <mesh
@@ -397,7 +287,7 @@ function Landscape() {
         scale={[0.55, 0.7, 0.55]}
         position={[0, 0.02, 0]}
       />
-      {TREES.map(([x, z], i) => (
+      {trees.map(([x, z], i) => (
         <Asset
           key={i}
           name={
@@ -416,15 +306,17 @@ function Landscape() {
           rotation={i * 1.7}
         />
       ))}
-      {TREES.filter((_, i) => i < 15 && i % 2 === 0).map(([x, z], i) => (
-        <Asset
-          key={i}
-          name="rock-small"
-          position={[x - 0.5, 0.02, z + 0.5]}
-          scale={[0.7, 0.7, 0.7]}
-          rotation={i * 1.1}
-        />
-      ))}
+      {trees
+        .filter((_, i) => i < 15 && i % 2 === 0)
+        .map(([x, z], i) => (
+          <Asset
+            key={i}
+            name="rock-small"
+            position={[x - 0.5, 0.02, z + 0.5]}
+            scale={[0.7, 0.7, 0.7]}
+            rotation={i * 1.1}
+          />
+        ))}
       <Asset
         name="stall-bench"
         position={[-1.5, 0.02, 0.8]}
@@ -440,10 +332,19 @@ function Landscape() {
   );
 }
 
-function CameraControls({ request }: { request: ViewRequest }) {
+function CameraControls({
+  request,
+  dense,
+}: {
+  request: ViewRequest;
+  dense: boolean;
+}) {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera, size, invalidate } = useThree();
-  const zoom = Math.min(size.width / 27, size.height / 20);
+  const zoom = Math.min(
+    size.width / (dense ? 59 : 27),
+    size.height / (dense ? 47 : 20),
+  );
   useEffect(() => {
     const cam = camera as OrthographicCamera;
     cam.position.set(24, 26, 24);
@@ -524,89 +425,117 @@ function Metrics({
 function LabelProjection({
   container,
   placements,
+  dense,
 }: {
   container: RefObject<HTMLDivElement | null>;
   placements: Placement[];
+  dense: boolean;
 }) {
   useFrame(({ camera, size }) => {
     const occupied: { x: number; y: number; w: number; h: number }[] = [];
     const overlaps = (box: { x: number; y: number; w: number; h: number }) =>
       occupied.some(
-        (other) =>
-          box.x < other.x + other.w + 5 &&
-          box.x + box.w + 5 > other.x &&
-          box.y < other.y + other.h + 5 &&
-          box.y + box.h + 5 > other.y,
+        (o) =>
+          box.x < o.x + o.w + 5 &&
+          box.x + box.w + 5 > o.x &&
+          box.y < o.y + o.h + 5 &&
+          box.y + box.h + 5 > o.y,
       );
+    const ranks = new Map<string, number>(),
+      seen = new Map<string, number>();
+    placements.forEach((p) => {
+      const n = seen.get(p.districtId) ?? 0;
+      ranks.set(p.id, n);
+      seen.set(p.districtId, n + 1);
+    });
+    const priority = (id: string) => {
+      const e = container.current?.querySelector(`[data-label-id="${id}"]`);
+      return e?.classList.contains("selected")
+        ? 2
+        : e?.classList.contains("has-activity")
+          ? 1
+          : 0;
+    };
     const ordered = [...placements].sort(
       (a, b) =>
-        Number(
-          container.current
-            ?.querySelector(`[data-label-id="${b.id}"]`)
-            ?.classList.contains("selected"),
-        ) -
-        Number(
-          container.current
-            ?.querySelector(`[data-label-id="${a.id}"]`)
-            ?.classList.contains("selected"),
-        ),
+        priority(b.id) - priority(a.id) ||
+        ranks.get(a.id)! - ranks.get(b.id)! ||
+        compareIds(a, b),
     );
-    ordered.forEach((p) => {
-      const element = container.current?.querySelector<HTMLButtonElement>(
+    const fit = Math.min(
+      size.width / (dense ? 59 : 27),
+      size.height / (dense ? 47 : 20),
+    );
+    const limit = dense
+      ? Math.max(6, Math.floor(size.width / 125)) *
+        Math.max(1, Math.floor((camera as OrthographicCamera).zoom / fit))
+      : Infinity;
+    let visible = 0;
+    for (const p of ordered) {
+      const e = container.current?.querySelector<HTMLButtonElement>(
         `[data-label-id="${p.id}"]`,
       );
-      if (!element || element.hidden) return;
-      const point = new Vector3(p.x, p.floors + 1.05, p.z).project(camera);
-      const x = (point.x * 0.5 + 0.5) * size.width,
-        initialY = (-point.y * 0.5 + 0.5) * size.height;
-      let y = initialY;
-      const box = {
-        x: x - element.offsetWidth / 2,
-        y: y - element.offsetHeight / 2,
-        w: element.offsetWidth,
-        h: element.offsetHeight,
-      };
-      for (let attempt = 1; attempt <= 6 && overlaps(box); attempt++) {
-        y =
-          initialY +
-          (attempt % 2 === 1 ? -1 : 1) * Math.ceil(attempt / 2) * (box.h + 6);
-        box.y = y - box.h / 2;
-      }
-      occupied.push(box);
-      element.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
-      element.style.visibility =
+      if (!e || e.hidden) continue;
+      e.style.visibility = "hidden";
+      const point = new Vector3(p.x, p.height + 0.2, p.z).project(camera);
+      if (
         point.z < -1 ||
         point.z > 1 ||
         point.x < -1 ||
         point.x > 1 ||
         point.y < -1 ||
-        point.y > 1
-          ? "hidden"
-          : "visible";
-    });
-    [
-      ...(container.current?.querySelectorAll<HTMLElement>(
-        "[data-district-x]",
-      ) ?? []),
-    ].forEach((element) => {
-      element.style.display = "";
+        point.y > 1 ||
+        visible >= limit
+      )
+        continue;
+      const w = e.offsetWidth,
+        h = e.offsetHeight;
+      const x = Math.max(
+        w / 2 + 4,
+        Math.min(size.width - w / 2 - 4, (point.x * 0.5 + 0.5) * size.width),
+      );
+      const initialY = (-point.y * 0.5 + 0.5) * size.height;
+      let y = initialY;
+      const box = { x: x - w / 2, y: y - h / 2, w, h };
+      for (let attempt = 1; attempt <= 4 && overlaps(box); attempt++) {
+        y =
+          initialY + (attempt % 2 ? -1 : 1) * Math.ceil(attempt / 2) * (h + 6);
+        box.y = y - h / 2;
+      }
+      if (overlaps(box) || box.y < 8 || box.y + h > size.height - 75) continue;
+      e.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
+      e.style.visibility = "visible";
+      occupied.push(box);
+      visible++;
+    }
+    for (const e of container.current?.querySelectorAll<HTMLElement>(
+      "[data-district-x]",
+    ) ?? []) {
+      e.style.display = "";
       const point = new Vector3(
-        Number(element.dataset.districtX),
-        0.06,
-        Number(element.dataset.districtZ),
+        Number(e.dataset.districtX),
+        0.1,
+        Number(e.dataset.districtZ),
       ).project(camera);
       const x = (point.x * 0.5 + 0.5) * size.width,
         y = (-point.y * 0.5 + 0.5) * size.height;
       const box = {
-        x: x - element.offsetWidth / 2,
-        y: y - element.offsetHeight / 2,
-        w: element.offsetWidth,
-        h: element.offsetHeight,
+        x: x - e.offsetWidth / 2,
+        y: y - e.offsetHeight / 2,
+        w: e.offsetWidth,
+        h: e.offsetHeight,
       };
-      if (overlaps(box)) element.style.display = "none";
+      if (
+        overlaps(box) ||
+        box.x < 0 ||
+        box.x + box.w > size.width ||
+        box.y < 8 ||
+        box.y + box.h > size.height - 75
+      )
+        e.style.display = "none";
       else occupied.push(box);
-      element.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
-    });
+      e.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`;
+    }
   });
   return null;
 }
@@ -623,6 +552,18 @@ function Town(props: Props & { labels: RefObject<HTMLDivElement | null> }) {
     () => new Map(placements.map((p) => [p.id, p])),
     [placements],
   );
+  const parts = useMemo(
+    () =>
+      placements.flatMap((p) =>
+        buildingParts(
+          p,
+          buildingActivities(activity, p.id).some((a) => a.status === "open"),
+        ),
+      ),
+    [placements, activity],
+  );
+  const chosen = indexes.get(selected)!;
+  const dense = map.layoutProfile === "dense";
   const selectedRelations = relationships
     ? map.relationships.filter((r) => r.from === selected || r.to === selected)
     : [];
@@ -634,27 +575,45 @@ function Town(props: Props & { labels: RefObject<HTMLDivElement | null> }) {
         intensity={2.2}
         castShadow
         shadow-mapSize={[2048, 2048]}
-        shadow-camera-left={-17}
-        shadow-camera-right={17}
-        shadow-camera-top={17}
-        shadow-camera-bottom={-17}
+        shadow-camera-left={dense ? -34 : -17}
+        shadow-camera-right={dense ? 34 : 17}
+        shadow-camera-top={dense ? 34 : 17}
+        shadow-camera-bottom={dense ? -34 : -17}
         shadow-normalBias={0.025}
       />
-      <Landscape />
-      {placements.map((placement) => {
-        const building = map.buildings.find((b) => b.id === placement.id)!;
-        const activities = buildingActivities(activity, building.id),
-          open = activities.filter((a) => a.status === "open");
-        return (
-          <House
-            key={building.id}
-            placement={placement}
-            selected={selected === building.id}
-            open={open.length}
-            onSelect={() => onSelect(building.id)}
-          />
-        );
-      })}
+      <Landscape map={map} />
+      <KitInstances parts={parts} onSelect={onSelect} />
+      <Line
+        points={[
+          [
+            chosen.x - chosen.width / 2 - 0.2,
+            0.035,
+            chosen.z - chosen.depth / 2 - 0.2,
+          ],
+          [
+            chosen.x + chosen.width / 2 + 0.2,
+            0.035,
+            chosen.z - chosen.depth / 2 - 0.2,
+          ],
+          [
+            chosen.x + chosen.width / 2 + 0.2,
+            0.035,
+            chosen.z + chosen.depth / 2 + 0.2,
+          ],
+          [
+            chosen.x - chosen.width / 2 - 0.2,
+            0.035,
+            chosen.z + chosen.depth / 2 + 0.2,
+          ],
+          [
+            chosen.x - chosen.width / 2 - 0.2,
+            0.035,
+            chosen.z - chosen.depth / 2 - 0.2,
+          ],
+        ]}
+        color="#476a55"
+        lineWidth={2}
+      />
       {selectedRelations.map((relation) => {
         const from = indexes.get(relation.from)!,
           to = indexes.get(relation.to)!;
@@ -674,8 +633,12 @@ function Town(props: Props & { labels: RefObject<HTMLDivElement | null> }) {
           />
         );
       })}
-      <CameraControls request={props.viewRequest} />
-      <LabelProjection container={props.labels} placements={placements} />
+      <CameraControls request={props.viewRequest} dense={dense} />
+      <LabelProjection
+        container={props.labels}
+        placements={placements}
+        dense={dense}
+      />
       <Metrics onMetrics={props.onMetrics} version={props.map.mappingVersion} />
     </>
   );
@@ -721,7 +684,7 @@ export function CityScene(props: Props) {
             <button
               key={building.id}
               data-label-id={building.id}
-              className={`building-label ${props.selected === building.id ? "selected" : ""}`}
+              className={`building-label ${props.selected === building.id ? "selected" : ""} ${open.length ? "has-activity" : ""}`}
               hidden={
                 !props.overview && props.selected !== building.id && !failed
               }
@@ -750,8 +713,11 @@ export function CityScene(props: Props) {
           <span
             key={district.id}
             className="district-label"
-            data-district-x={DISTRICT_SLOTS[index][0]}
-            data-district-z={DISTRICT_SLOTS[index][1] + 2}
+            data-district-x={districtSlots(props.map)[index][0]}
+            data-district-z={
+              districtSlots(props.map)[index][1] +
+              (props.map.layoutProfile === "dense" ? 0 : 2)
+            }
           >
             {district.label}
           </span>

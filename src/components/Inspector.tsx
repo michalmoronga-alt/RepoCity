@@ -1,5 +1,6 @@
 import { ArrowRight, GitBranch } from "lucide-react";
 import type { CityMap } from "../domain/map";
+import { ARCHETYPE_LABELS } from "../domain/archetypes";
 import {
   buildingActivities,
   currentCheck,
@@ -64,6 +65,7 @@ export default function Inspector({
       <div aria-live="polite">
         <h2>{building.label}</h2>
         <p className="district-name">{district.label}</p>
+        <p className="quiet">{ARCHETYPE_LABELS[building.archetype]}</p>
         <p className="purpose">{building.purpose}</p>
       </div>
       <div className="source-scope">

@@ -2,6 +2,23 @@
 
 Checkpoint 13. októbra 2026: prvý lokálny 3D viewer je implementovaný a pripravený na používateľskú skúšku. Celá akceptácia Prototype 001 ešte nie je uzavretá.
 
+Checkpoint 15. októbra: grafický smer vyhovuje; majiteľ požiadal o hustejšie mesto a odlišnejšie budovy v mierke 40–60 funkčných celkov. [Hustejšia iterácia](DENSE_CITY.md) už beží: verejná ukážka má 50 budov, súkromný pilot používa jemnejšie zdrojovo podložené mapovanie. Nové hranice mapy a výsledný vzhľad čakajú na posúdenie majiteľom.
+
+## Overenie hustejšej iterácie — 15. október
+
+- Osem vizuálnych typov s odlišnými pôdorysmi, výškami a strechami; ďalšie varianty fasád a striech sú stabilne odvodené z ID. Lokálny pilot využíva sedem z týchto typov.
+- Kompaktné uličné bloky, menšie námestia a popisky obmedzené výberom, priblížením a voľným miestom. Celý zoznam budov zostáva prístupný.
+- Opakované stavebné diely sa vykresľujú spoločne; rast počtu budov nevytvára samostatné kreslenie každej steny.
+- 14 testov: pôvodné stavy aktivít, 50-budovová mapa, rozloženie až 60 najväčších pôdorysov, kompatibilita vstupov a reálne dekódované geometrie všetkých receptov vo variantoch a otočeniach. Overuje sa kontakt so zemou a deklarovaná obálka; nejde o univerzálny socket/kolízny solver.
+- 28 grafických súborov, 436 643 bajtov. Zdrojový archív a jeho hash sa nezmenili; overené sú aj nové steny, plochá strecha a ich kotvy.
+- Produkčná fiktívna mapa na 1536 × 1024: 50 budov, 75 draw calls, 133 490 trojuholníkov, 26 geometrií a 2 textúry. Väčší grafický JS chunk zostáva upozornením (988,90 kB / 266,62 kB gzip).
+- Chromium: výber priamo na geometrii správne rozlíšil budovy vykreslené spoločne; kamera, návrat pohľadu, vzťahy, deväť udalostí a reset prešli. Po ustálení boli počítadlá rámcov počas 1,2 sekundy rovnaké.
+- 390 × 844: bez vodorovného pretečenia a prekrývania zobrazených názvov, funkčný výber zo zoznamu. Skutočný telefón/GPU stále nie sú kvalifikované.
+- Produkčný balík načítal iba fiktívnu mapu a miestne assety, bez automatickej požiadavky na súkromný pilot či externé zdroje. Chybný import zachoval mapu; pôvodná desaťbudovová mapa sa otvorila. Pri vypnutom WebGL zostal funkčný zoznam 50 budov bez zaseknutého načítavania.
+- Konzola produkčnej stránky bez chýb a upozornení. Vstavané pripojenie prehliadača zlyhalo; majiteľ výslovne povolil samostatný testovací prehliadač aj pre ďalšiu prácu na RepoCity.
+
+Pracovný rozpočet pre túto iteráciu je do 150 draw calls, 200 000 trojuholníkov a 1 MB grafických assetov pre bežný pohľad na pilot. Nenahrádza meranie odozvy na reprezentatívnom zariadení. Staršie čísla a rozpočet nižšie patria pôvodnej desaťbudovovej ukážke.
+
 ## Hotové podklady
 
 - Prečítaný pôvodný baseline a zapísaný schválený smer v [DECISIONS.md](DECISIONS.md).
@@ -35,8 +52,8 @@ Vstavané pripojenie overovacieho prehliadača bolo nefunkčné; overenie prebeh
 
 ## Ďalší krok
 
-1. Majiteľ vyskúša vzhľad, orientáciu a simuláciu; zapíšeme konkrétne pripomienky a výsledok akceptácie.
-2. Doladíme zistené problémy. Pred zväčšovaním scény používame pracovný rozpočet do 240 draw calls, 40 000 trojuholníkov a 1 MB grafických assetov pre tento malý pilot; výkon na reprezentatívnom zariadení treba ešte overiť.
+1. Majiteľ posúdi hustejšie mesto, rozdiely medzi typmi stavieb a nové funkčné členenie; zapíšeme pripomienky a výsledok akceptácie.
+2. Doladíme zistené problémy a overíme odozvu na reprezentatívnom zariadení. Pôvodný rozpočet 240 draw calls / 40 000 trojuholníkov patril malej ukážke, nie aktuálnej hustejšej iterácii.
 3. Až po prijatí vieweru pripravíme prvé čítanie GitHubu, čerstvosť a chýbajúce údaje podľa [roadmapy](ROADMAP.md).
 
 ## Otvorené brány

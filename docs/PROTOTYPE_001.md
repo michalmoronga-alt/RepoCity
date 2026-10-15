@@ -38,3 +38,5 @@ Only then connect live GitHub reads and expand the city system in the [roadmap](
 The first viewer and simulated sequence are running. Source mapping was accepted separately. Tests and browser evidence are recorded in [STATUS.md](STATUS.md); owner feedback on the running viewer has not yet been obtained, so the prototype exit gate remains open.
 
 The initial recipes use a fixed Classic kit and authored district lots. Renaming/reordering and replaying activities preserve the layout. Adding/removing district identities across map versions is not qualified as stable incremental growth. Asset checks decode real vertex buffers and validate wall/roof contact anchors; they do not establish full socket compatibility or collision freedom for future arbitrary recipes.
+
+Owner feedback on 15 Oct accepted the graphical direction but requested more density and less similar buildings. The [dense-city follow-up](DENSE_CITY.md) implements the selected 40–60 scale before live GitHub integration. Neither the original prototype nor its larger follow-up is declared fully accepted by this feedback alone.

@@ -1,3 +1,5 @@
+import { ARCHETYPES, type Archetype } from "./archetypes";
+
 export interface SourceAnchor {
   path: string;
   line: number;
@@ -9,6 +11,7 @@ export interface Building {
   shortLabel: string;
   purpose: string;
   sourceAnchors: SourceAnchor[];
+  archetype: Archetype;
 }
 export interface District {
   id: string;
@@ -30,6 +33,7 @@ export interface CityMap {
   buildings: Building[];
   districts: District[];
   relationships: Relationship[];
+  layoutProfile: "compact" | "dense";
 }
 
 function record(input: unknown): Record<string, unknown> {
@@ -49,7 +53,7 @@ function id(input: unknown) {
 }
 function array(input: unknown, min: number, max: number) {
   if (!Array.isArray(input) || input.length < min || input.length > max)
-    throw new Error("Tento prototyp podporuje 8–12 budov a najviac 5 štvrtí.");
+    throw new Error("Tento prototyp podporuje 8–60 budov a najviac 5 štvrtí.");
   return input as unknown[];
 }
 function unique(items: { id: string }[]) {
@@ -66,8 +70,11 @@ export function parseMap(input: unknown): CityMap {
     const r = record(value);
     return { id: id(r.id), label: text(r.label, 120) };
   });
-  const buildings = array(raw.buildings, 8, 12).map((value) => {
+  const buildings = array(raw.buildings, 8, 60).map((value) => {
     const r = record(value);
+    const archetype = r.archetype ?? "house";
+    if (!ARCHETYPES.includes(archetype as Archetype))
+      throw new Error("Neznámy typ budovy.");
     const anchors =
       r.sourceAnchors === undefined
         ? []
@@ -88,6 +95,7 @@ export function parseMap(input: unknown): CityMap {
       shortLabel: text(r.shortLabel ?? r.label, 120),
       purpose: text(r.purpose),
       sourceAnchors: anchors,
+      archetype: archetype as Archetype,
     };
   });
   const relationships = array(raw.relationships, 0, 40).map((value) => {
@@ -110,9 +118,17 @@ export function parseMap(input: unknown): CityMap {
   for (const relation of relationships)
     if (!buildingIds.has(relation.from) || !buildingIds.has(relation.to))
       throw new Error("Vzťah smeruje na neexistujúcu budovu.");
+  const layoutProfile = raw.layoutProfile ?? "compact";
+  if (layoutProfile !== "compact" && layoutProfile !== "dense")
+    throw new Error("Neznáme rozloženie mesta.");
+  if (layoutProfile === "compact" && buildings.length > 12)
+    throw new Error("Väčšia mapa potrebuje výslovné husté rozloženie.");
   for (const district of districts)
-    if (buildings.filter((b) => b.districtId === district.id).length > 3)
-      throw new Error("Malý prototyp má najviac tri budovy v jednej štvrti.");
+    if (
+      buildings.filter((b) => b.districtId === district.id).length >
+      (layoutProfile === "dense" ? 15 : 3)
+    )
+      throw new Error("Štvrť prekračuje kapacitu svojho rozloženia.");
   const snapshot = project.sourceSnapshot;
   if (
     snapshot !== null &&
@@ -138,5 +154,6 @@ export function parseMap(input: unknown): CityMap {
     buildings,
     districts,
     relationships,
+    layoutProfile,
   };
 }

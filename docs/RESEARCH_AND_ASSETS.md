@@ -37,6 +37,8 @@
 
 **Current status, 13 Oct 2026:** the selected Fantasy Town Kit subset is imported and bundled. Other graphical/tool links remain research leads, not redistribution approval.
 
+**Update, 15 Oct 2026:** the same hash-pinned CC0 archive now supplies 27 GLB models plus the atlas (436 643 bytes). Six added parts: round/stone windows, wooden wall, green stall, cart and flat roof. Their actual bounds and node transforms were inspected before use; the cart remains a catalog reserve. `npm run verify:assets` checks 28 files and the extra facade/flat-roof anchors. `tools/gltf-bounds.mjs` is also used by recipe tests to decode actual vertices and test assembled envelopes. The importer accepts a previously downloaded archive path as an optional argument and checks the same archive SHA-256 in either mode. The CC0 notice is retained in the original archive byte form.
+
 ## Research verification — 12 Oct 2026
 
 Primary product materials reviewed; demos were not run:

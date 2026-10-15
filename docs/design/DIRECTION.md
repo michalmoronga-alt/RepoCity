@@ -33,3 +33,9 @@ Technický základ: React 19 + React Three Fiber 9 podľa [pravidla kompatibilit
 5. Interakcia: výber, väzby, kamera a simulácia sú ovládateľné. Popisky sa oddeľujú, pri kolízii sa potlačí názov štvrte; na úzkej ploche je doplnkový zoznam budov.
 
 Odchýlky sú zámerné a nejde o presnú 10/10 reprodukciu obrázka. Texty konceptu boli nahradené účelom a názvami načítanej mapy; neoverený živý stav sa označuje ako nepripojený. Konečnú príjemnosť a užitočnosť ešte posúdi majiteľ v bežiacom prototype.
+
+## Spätná väzba a hustejšia iterácia — 15. október
+
+Majiteľ ocenil grafické pôsobenie, ale vyžiadal hustejšie mesto s rôznymi budovami a zvolil mierku 40–60. Predchádzajúci koncept je preto referenciou farieb, typografie a rámca aplikácie; jeho desať domov už neurčuje cieľovú hustotu.
+
+Bežiaca iterácia zachováva teplé pozadie, zelené ovládanie, dominantné mesto, pravý panel a simuláciu. Mení počet a skladbu domov: osem siluet, rozdielne pôdorysy, nižšie sklady, vysoké kontrolné veže, dvojpodlažné kancelárie, ateliéry a verejné budovy s vežičkou. Terakotové strechy dopĺňa tlmená sivá; rastie hustota ulíc a budov pri zachovaní okrajovej zelene. Popisky sa prispôsobujú priestoru a priblíženiu. Pôvodné rozloženie desať domov / dva na štvrť je týmto zámerne nahradené.

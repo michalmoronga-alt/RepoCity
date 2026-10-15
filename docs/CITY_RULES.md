@@ -74,4 +74,6 @@ Prvý prototyp používa obmedzené vizuálne archetypy. Pôdorys a výška neme
 
 Scéna s približne 10 budovami, posun/priblíženie, Mesto/Prehľad, jedna karta budovy a stručná legenda. Stačí niekoľko označených ukážkových udalostí, krokovanie a návrat na začiatok; plná časová os je ďalší krok.
 
+Táto veta opisuje prvý dôkaz konceptu. Po spätnej väzbe z 15. októbra nasleduje [hustejšia iterácia 40–60 budov](DENSE_CITY.md): pri vzdialenom pohľade sa ukáže obmedzený výber názvov, pri priblížení viac detailov. Úplný zoznam je dostupný stále. Vizuálny typ budovy vyjadruje zvolený charakter funkcie; jej výška ani výzdoba nie sú skóre zdravia či dôležitosti.
+
 Konkrétne pilotné podklady sú v ignorovanom `.local/`. Verejné príklady neobsahujú názvy, cesty, commity, PR ani identifikátory pozorovaného projektu. Pred publikovaním sa kontroluje aj obsah diffu.

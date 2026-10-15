@@ -14,6 +14,10 @@ Následne schválil hodnotenie, doplnenia a poradie ďalších krokov. Poveril a
 
 Michal potvrdil lokálny návrh piatich štvrtí a desiatich budov vrátane hraníc širšej výrobnej zodpovednosti odpoveďou „ano sedi“. Identifikovateľné podklady zostávajú lokálne. Brána významového mapovania prvého projektu je splnená; používateľská skúška 3D prototypu ešte neprebehla.
 
+## 15. október 2026 — hustota a rozmanitosť
+
+Majiteľ ocenil grafický smer, ale žiada hustejšie mesto a výraznejšie odlišné budovy. Pre ďalšiu ukážku vybral orientačný rozsah **40–60 budov, kompaktné husté mesto**. Počet vznikne jemnejším funkčným mapovaním; nové hranice ešte nie sú potvrdené. Táto iterácia má prednosť pred napojením živých údajov. Konkrétny postup: [DENSE_CITY.md](DENSE_CITY.md).
+
 ## Platí pre ďalšiu prácu
 
 - Funkčné štvrte a trvalé budovy; priečinky sú vstup pre návrh, nie automatická definícia architektúry.
